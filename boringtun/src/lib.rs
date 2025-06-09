@@ -7,6 +7,7 @@
 
 #[cfg(feature = "device")]
 pub mod device;
+pub mod serialization;
 
 #[cfg(feature = "ffi-bindings")]
 pub mod ffi;
@@ -16,8 +17,6 @@ pub mod noise;
 
 #[cfg(not(feature = "mock-instant"))]
 pub(crate) mod sleepyinstant;
-
-pub(crate) mod serialization;
 
 /// Re-export of the x25519 types
 pub mod x25519 {

@@ -284,7 +284,7 @@ impl Device {
         self.next_index.next()
     }
 
-    fn remove_peer(&mut self, pub_key: &x25519::PublicKey) {
+    pub fn remove_peer(&mut self, pub_key: &x25519::PublicKey) {
         if let Some(peer) = self.peers.remove(pub_key) {
             // Found a peer to remove, now purge all references to it:
             {
@@ -300,7 +300,7 @@ impl Device {
     }
 
     #[allow(clippy::too_many_arguments)]
-    fn update_peer(
+    pub fn update_peer(
         &mut self,
         pub_key: x25519::PublicKey,
         remove: bool,
@@ -407,7 +407,7 @@ impl Device {
         Ok(device)
     }
 
-    fn open_listen_socket(&mut self, mut port: u16) -> Result<(), Error> {
+    pub fn open_listen_socket(&mut self, mut port: u16) -> Result<(), Error> {
         // Binds the network facing interfaces
         // First close any existing open socket, and remove them from the event loop
         if let Some(s) = self.udp4.take() {
@@ -451,7 +451,7 @@ impl Device {
         Ok(())
     }
 
-    fn set_key(&mut self, private_key: x25519::StaticSecret) {
+    pub fn set_key(&mut self, private_key: x25519::StaticSecret) {
         let public_key = x25519::PublicKey::from(&private_key);
         let key_pair = Some((private_key.clone(), public_key));
 
@@ -476,7 +476,7 @@ impl Device {
     }
 
     #[cfg(any(target_os = "android", target_os = "fuchsia", target_os = "linux"))]
-    fn set_fwmark(&mut self, mark: u32) -> Result<(), Error> {
+    pub fn set_fwmark(&mut self, mark: u32) -> Result<(), Error> {
         self.fwmark = Some(mark);
 
         // First set fwmark on listeners
@@ -498,7 +498,7 @@ impl Device {
         Ok(())
     }
 
-    fn clear_peers(&mut self) {
+    pub fn clear_peers(&mut self) {
         self.peers.clear();
         self.peers_by_idx.clear();
         self.peers_by_ip.clear();

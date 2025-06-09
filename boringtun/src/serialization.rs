@@ -1,4 +1,4 @@
-pub(crate) struct KeyBytes(pub [u8; 32]);
+pub struct KeyBytes(pub [u8; 32]);
 
 impl std::str::FromStr for KeyBytes {
     type Err = &'static str;
